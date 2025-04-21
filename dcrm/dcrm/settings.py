@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'website',              # App wurde mit "python .\manage.py startapp website" angelegt und muss hier hinzugefügt werden
 ]
 
 MIDDLEWARE = [
@@ -73,9 +74,20 @@ WSGI_APPLICATION = 'dcrm.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
+    # Default wird SqlLite benutzt
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
+    # }
+
+    # Ändern auf Nutzung von SQL
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'elderco',
+        'USER': 'django_user',
+        'PASSWORD': 'Test1234!',
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
 
