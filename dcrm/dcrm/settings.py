@@ -128,6 +128,11 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+# Falls du im Projektordner einen globalen static-Ordner hast
+STATICFILES_DIRS = [
+  BASE_DIR / 'website' / 'static',
+]
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
