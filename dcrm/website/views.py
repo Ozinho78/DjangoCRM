@@ -2,11 +2,14 @@ from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .forms import SignUpForm
+from .models import Record
 
 # Create your views here.
 def home(request):
+    records = Record.objects.all()  # speichert alle Einträge der DB in der Variablen
+
     # Check to see if logging in
-    if request.method == 'POST':
+    if request.method == 'POST':        # wenn etwas gepostet wird, will der User sich einloggen
         username = request.POST['username']
         password = request.POST['password']
 
@@ -19,8 +22,8 @@ def home(request):
         else:
             messages.success(request, "There Was An Error Logging In, Please Try Again...")
             return redirect('home')
-    else:
-        return render(request, 'home.html', {})
+    else:       # wenn nichts gepostet wird, sollen die Daten angezeigt werden
+        return render(request, 'home.html', {'records': records})
 
 
 # def login_user(request):
@@ -50,3 +53,28 @@ def register_user(request):
         return render(request, 'register.html', {'form':form})
     
     return render(request, 'register.html', {'form':form})
+
+
+def customer_record(request, pk):
+    if request.user.is_authenticated:   # nur anzeigen, wenn User eingeloggt ist
+        # Look Up Records
+        customer_record = Record.objects.get(id=pk)     # jeder Record hat einen unique primary key
+        return render(request, 'record.html', {'customer_record':customer_record})
+    else:
+        messages.success(request, "You Must Be Logged In To View This Page...")
+        return redirect('home')
+    
+
+def delete_record(request, pk):
+    if request.user.is_authenticated:
+        delete_it = Record.objects.get(id=pk)
+        delete_it.delete()
+        messages.success(request, "Record Deleted Successfully...")
+        return redirect('home')
+    else:
+        messages.success(request, "You Must Be Logged In To Delete This Record...")
+        return redirect('home')
+    
+
+def add_record(request):
+    return render(request, 'add_record.html', {})
