@@ -25,14 +25,14 @@
         <th scope="col">State</th>
         <th scope="col">Zipcode</th>
         <th scope="col">Created At</th>
-        <th scope="col">ID</th>
+        {% comment %} <th scope="col">ID</th> {% endcomment %}
       </tr>
     </thead>
     <tbody>
       {% if records %}
         {% for record in records %}
         <tr>
-          <td>{{ record.first_name }} {{ record.last_name }}</td>
+          <td><a href="{% url 'record' record.id %}">{{ record.first_name }} {{ record.last_name }}</a></td>
           <td>{{ record.email }}</td>
           <td>{{ record.phone }}</td>
           <td>{{ record.address }}</td>
@@ -40,7 +40,7 @@
           <td>{{ record.state }}</td>
           <td>{{ record.zipcode }}</td>
           <td>{{ record.created_at }}</td>
-          <td><a href="{% url 'record' record.id %}">{{ record.id }}</a></td>   <!-- record wird als url aufgerufen und die record.id angehängt -->
+          {% comment %} <td><a href="{% url 'record' record.id %}">{{ record.id }}</a></td>   <!-- record wird als url aufgerufen und die record.id angehängt --> {% endcomment %}
         </tr>
         {% endfor %}
       {% endif %}

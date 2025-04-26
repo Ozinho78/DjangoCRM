@@ -2,19 +2,18 @@
 {% block content %}
 
   <div class="col-md-6 offset-md-3">
-    <h1>Add Record:</h1>
+    <h1>Update Record:</h1>
     <br>
-    <form method="POST" action="{% url 'add_record' %}">
+    <form method="POST">
       {% csrf_token %}  <!-- damit die Form nicht von Hackern gehijacked wird -->
       
       {{ form.as_p }}
-      
+
       <br>
       <a href="{% url 'home' %}" class="btn btn-secondary">Back</a>
       <button type="submit" class="btn btn-secondary">Update Record</button>
 
     </form>
-  
 
   </div>
   
